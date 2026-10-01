@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EducaPro | Formación y Certificación Profesional</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/matriculas.css">
+</head>
+
+<body class="pagina-matricula">
+
+  <!-- HEADER -->
+<header class="header">
+  <div class="header-container">
+
+    <img src="img/logo-educapro.png" alt="EducaPro" class="logo">
+
+    <nav class="menu">
+      <a href="index.html" >Inicio</a>
+      <a href="matriculas.html"class="activo">Matrículas</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="validar.html">Validar Certificado</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+<section class="matricula-wrapper">
+
+<form id="formMatricula" onsubmit="enviarMatricula(event)" class="matricula-card">
+
+  <h1>Matrícula</h1>
+  <p>Completa tus datos para acceder a nuestros programas certificados.</p>
+
+  <div class="campo">
+    <label>Nombres</label>
+    <input type="text" name="nombres" required>
+  </div>
+
+  <div class="campo">
+    <label>Apellidos</label>
+    <input type="text" name="apellidos" required>
+  </div>
+
+  <div class="campo">
+    <label>DNI</label>
+    <input type="text" name="dni" required>
+  </div>
+
+  <div class="campo">
+    <label>Edad</label>
+    <input type="number" name="edad" required>
+  </div>
+
+  <div class="campo">
+    <label>Correo electrónico</label>
+    <input type="email" name="correo" required>
+  </div>
+
+  <div class="campo">
+    <label>Teléfono</label>
+    <input type="text" name="telefono" required>
+  </div>
+
+<div class="campo">
+  <label>Curso</label>
+
+  <div class="custom-select">
+    <input type="hidden" name="curso">
+
+    <div class="select-selected">Selecciona un curso</div>
+
+    <div class="select-options">
+      
+      <input type="text" class="search" placeholder="Buscar curso...">
+
+      <div>OFIMATICA PROFESIONAL</div>
+      <div>GESTION PUBLICA</div>
+      <div>EXCEL</div>
+      <div>SIAF</div>
+      <div>SEACE</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="campo">
+  <label>Nivel académico</label>
+
+  <div class="custom-select">
+     <input type="hidden" name="nivel">
+    <div class="select-selected">Seleccione nivel</div>
+
+    <div class="select-options">
+      <div>SECUNDARIA COMPLETA</div>
+      <div>Universitario</div>
+      <div>Postgrado</div>
+    </div>
+  </div>
+</div>
+
+<div class="campo">
+  <label>Modalidad de pago</label>
+
+  <div class="custom-select">
+     <input type="hidden" name="modalidad">
+    <div class="select-selected">Seleccione</div>
+
+    <div class="select-options">
+      <div>Yape</div>
+      <div>Plin</div>
+      <div>Transferencia</div>
+    </div>
+  </div>
+</div>
+  <div class="campo">
+    <label>Ciudad o Distrito Desde Donde se Inscribe</label>
+    <input type="text" name="ciudad" required>
+  </div>
+  <div class="terminos">
+    <input type="checkbox" name="acepta" required>
+    <span>Acepto los términos y condiciones</span>
+  </div>
+
+
+<div id="respuesta"></div>
+
+<button type="submit">Enviar matrícula</button>
+
+</form>
+
+</section>
+
+</main>
+
+<footer class="footer">
+  © 2026 EducaPro
+</footer>
+
+<script>
+document.querySelectorAll(".custom-select").forEach(select => {
+
+  const selected = select.querySelector(".select-selected");
+  const optionsContainer = select.querySelector(".select-options");
+  const options = optionsContainer.querySelectorAll("div");
+  const hiddenInput = select.querySelector("input[type='hidden']");
+  const search = select.querySelector(".search");
+
+  // abrir / cerrar
+  selected.addEventListener("click", () => {
+    document.querySelectorAll(".custom-select").forEach(s => {
+      if (s !== select) s.classList.remove("active");
+    });
+    select.classList.toggle("active");
+  });
+
+  // seleccionar opción
+  options.forEach(option => {
+    option.addEventListener("click", () => {
+      selected.innerText = option.innerText;
+      if (hiddenInput) {
+  hiddenInput.value = option.innerText;
+}
+      select.classList.remove("active");
+    });
+  });
+
+  // buscador
+  if (search) {
+    search.addEventListener("keyup", () => {
+      const filtro = search.value.toLowerCase();
+
+      options.forEach(option => {
+        option.style.display = option.innerText.toLowerCase().includes(filtro)
+          ? "block"
+          : "none";
+      });
+    });
+  }
+
+});
+
+// cerrar afuera
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".custom-select")) {
+    document.querySelectorAll(".custom-select").forEach(s => {
+      s.classList.remove("active");
+    });
+  }
+});
+</script>
+<script>
+async function enviarMatricula(e){
+  e.preventDefault();
+
+  const form = document.getElementById("formMatricula");
+
+  const data = {
+    nombres: form.nombres.value,
+    apellidos: form.apellidos.value,
+    dni: form.dni.value,
+    edad: form.edad.value,
+    correo: form.correo.value,
+    telefono: form.telefono.value,
+    curso: form.curso.value,
+    nivel: form.nivel.value,
+    modalidad: form.modalidad.value,
+    ciudad: form.ciudad.value,
+    acepta: form.acepta.checked ? "ACEPTO" : "NO ACEPTA"
+  };
+
+  try {
+
+    await fetch("https://script.google.com/macros/s/AKfycbwnbFg3n85SnxMyUhgT2_lX329aFAZDFGAMLtPOP1p9aQ8F9wU8bM9fuQDhsUTertCW/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      mode: "no-cors" // 🔥 CLAVE
+    });
+
+    // ✅ FORZAMOS ÉXITO VISUAL (porque no-cors no devuelve respuesta)
+  const respuesta = document.getElementById("respuesta");
+
+if (respuesta){
+  respuesta.innerHTML = "✅ Matrícula enviada correctamente";
+  respuesta.style.color = "green";
+  respuesta.style.display = "block";
+}
+
+    // limpiar formulario
+    form.reset();
+
+    // reset selects personalizados
+    document.querySelectorAll(".select-selected").forEach(el => {
+      el.innerText = "Seleccione";
+    });
+
+    document.querySelectorAll(".custom-select input[type='hidden']").forEach(el => {
+      el.value = "";
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    const respuesta = document.getElementById("respuesta");
+    if (respuesta){
+      respuesta.innerText = "❌ Error al enviar";
+    }
+  }
+}
+</script>
+</body>
+</html>

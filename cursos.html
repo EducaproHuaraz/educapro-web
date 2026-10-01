@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cursos | EducaPro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/cursos.css">
+
+</head>
+<!-- ===========================
+MODAL DE CURSOS
+=========================== -->
+
+<div id="modalCurso" class="modal">
+
+    <div class="modal-box">
+
+        <button class="cerrar-modal" onclick="cerrarModal()">
+            ✕
+        </button>
+
+        <span class="modal-badge">
+            ⭐ Programa de Especialización
+        </span>
+
+        <h2 id="tituloCurso"></h2>
+
+        <p id="descripcionCurso"></p>
+        <div class="precio-curso">
+
+    <span class="texto-precio">
+        Inversión
+    </span>
+
+    <h2>S/ 39</h2>
+
+    <small>
+        Pago único por certificación + Curso Grabado
+    </small>
+    <small>
+        Acceso inmediato después de la matrícula
+    </small>
+
+</div>
+        <div class="modal-info">
+
+            <div class="info-item">
+
+                <div class="icono">📚</div>
+
+                <div>
+
+                    <strong>Modalidad</strong>
+
+                    <span id="modalidadCurso"></span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <div class="icono">⏱</div>
+
+                <div>
+
+                    <strong>Duración</strong>
+
+                    <span id="horasCurso"></span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <div class="icono">🎓</div>
+
+                <div>
+
+                    <strong>Certificación</strong>
+
+                    <span id="certificadoCurso"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3>📘 Contenido del programa</h3>
+
+        <ul id="temarioCurso"></ul>
+
+        <a
+            id="botonWhatsapp"
+            class="btn-whatsapp"
+            target="_blank">
+
+             Quiero matricularme ahora
+
+        </a>
+
+    </div>
+
+</div>
+<body>
+
+  <!-- HEADER -->
+<header class="header">
+  <div class="header-container">
+
+    <img src="img/logo-educapro.png" alt="EducaPro" class="logo">
+
+    <nav class="menu">
+      <a href="index.html" >Inicio</a>
+      <a href="matriculas.html">Matrículas</a>
+      <a href="cursos.html"class="activo">Cursos</a>
+      <a href="validar.html">Validar Certificado</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+  </div>
+<!-- ==========================================
+CURSOS
+========================================== -->
+
+<main>
+
+<section class="cursos">
+
+    <div class="section-title">
+
+        <span>CATÁLOGO EDUCAPRO</span>
+
+        <h1>Nuestros Cursos</h1>
+
+        <p>
+            Descubre programas de formación y certificación diseñados para fortalecer
+            tu perfil profesional y mejorar tus oportunidades laborales.
+        </p>
+
+    </div>
+
+    <div class="contenedor-buscador">
+
+        <input
+            type="text"
+            id="buscadorCursos"
+            class="buscador"
+            placeholder="🔍 Buscar un curso..."
+        >
+
+    </div>
+
+    <div class="grid-cursos">
+
+        <!-- DESTACADOS -->
+
+        <div class="card-curso" onclick="abrirCurso('OFIMÁTICA PROFESIONAL')">
+            <h3>OFIMÁTICA PROFESIONAL</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('GESTIÓN PÚBLICA')">
+            <h3>GESTIÓN PÚBLICA</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCursop('MICROSOFT EXCEL')">
+            <h3>MICROSOFT EXCEL</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('POWER BI')">
+            <h3>POWER BI</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('CONTRATACIONES CON EL ESTADO')">
+            <h3>CONTRATACIONES CON EL ESTADO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('ASISTENTE ADMINISTRATIVO')">
+            <h3>ASISTENTE ADMINISTRATIVO</h3>
+        </div>
+
+        <!-- OFIMÁTICA -->
+
+        <div class="card-curso" onclick="abrirCurso('MICROSOFT WORD')">
+            <h3>MICROSOFT WORD</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('MICROSOFT POWERPOINT')">
+            <h3>MICROSOFT POWERPOINT</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('COMPUTACIÓN E INFORMÁTICA')">
+            <h3>COMPUTACIÓN E INFORMÁTICA</h3>
+        </div>
+
+        <!-- GESTIÓN PÚBLICA -->
+
+        <div class="card-curso" onclick="abrirCurso('SIGA')">
+            <h3>SIGA</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('SIAF')">
+            <h3>SIAF</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('SEACE')">
+            <h3>SEACE</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('SIGA SIAF SEACE')">
+            <h3>SIGA SIAF SEACE</h3>
+        </div>
+
+        <!-- EDUCACIÓN -->
+
+        <div class="card-curso" onclick="abrirCurso('AUXILIAR DE EDUCACIÓN PRIMARIA')">
+            <h3>AUXILIAR DE EDUCACIÓN PRIMARIA</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('USO PEDAGÓGICO EN ENTORNOS VIRTUALES')">
+            <h3>USO PEDAGÓGICO EN ENTORNOS VIRTUALES</h3>
+        </div>
+
+        <!-- IDIOMAS -->
+
+        <div class="card-curso" onclick="abrirCurso('INGLÉS BÁSICO')">
+            <h3>INGLÉS BÁSICO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('INGLÉS INTERMEDIO')">
+            <h3>INGLÉS INTERMEDIO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('INGLÉS AVANZADO')">
+            <h3>INGLÉS AVANZADO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('QUECHUA')">
+            <h3>QUECHUA</h3>
+        </div>
+
+        <!-- OTROS -->
+
+        <div class="card-curso" onclick="abrirCurso('DERECHO TRIBUTARIO')">
+            <h3>DERECHO TRIBUTARIO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('NORMAS INTERNACIONALES DE INFORMACIÓN FINANCIERA')">
+            <h3>NORMAS INTERNACIONALES DE INFORMACIÓN FINANCIERA</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('SAP INTEGRAL')">
+            <h3>SAP INTEGRAL</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('GESTIÓN DE TI')">
+            <h3>GESTIÓN DE TI</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('INFRAESTRUCTURA, REDES Y SOPORTE')">
+            <h3>INFRAESTRUCTURA, REDES Y SOPORTE</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('SEGURIDAD Y SALUD OCUPACIONAL')">
+            <h3>SEGURIDAD Y SALUD OCUPACIONAL</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('VIOLENCIA DE GÉNERO')">
+            <h3>VIOLENCIA DE GÉNERO</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('DERECHOS HUMANOS')">
+            <h3>DERECHOS HUMANOS</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('CURSO ESPECIALIZADO EN ESTÉTICA')">
+            <h3>CURSO ESPECIALIZADO EN ESTÉTICA</h3>
+        </div>
+
+        <div class="card-curso" onclick="abrirCurso('TÉCNICAS PROFESIONALES DE COCINA')">
+            <h3>TÉCNICAS PROFESIONALES DE COCINA</h3>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script>
+
+const buscador = document.getElementById("buscadorCursos");
+
+const cursos = document.querySelectorAll(".card-curso");
+
+buscador.addEventListener("keyup", function(){
+
+    const texto = this.value.toLowerCase();
+
+    cursos.forEach(curso=>{
+
+        const nombre = curso.textContent.toLowerCase();
+
+        curso.style.display = nombre.includes(texto) ? "" : "none";
+
+    });
+
+});
+
+</script>
+
+<script>
+
+function enviarWhatsApp(curso){
+
+    const numero = "51919133859";
+
+    const mensaje = "Hola, quiero información del curso: " + curso + ". Vengo desde la página web de EducaPro.";
+
+    const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+
+    window.open(url,"_blank");
+
+}
+
+</script>
+
+</body>
+
+</html>
+<script>
+
+const cursosInfo={
+
+"OFIMÁTICA PROFESIONAL":{
+
+descripcion:"Aprende Microsoft Word, Excel y PowerPoint para potenciar tu perfil profesional.",
+
+modalidad:"Virtual",
+
+horas:"280 Horas Académicas",
+
+certificado:"Digital y verificable",
+
+temario:[
+
+"El programa de Ofimática Profesional está diseñado para fortalecer tus competencias digitales mediante el aprendizaje práctico de Microsoft Word, Excel y PowerPoint. Durante el desarrollo del curso elaborarás documentos profesionales, administrarás hojas de cálculo con funciones y gráficos, crearás presentaciones dinámicas y adquirirás habilidades que te permitirán desempeñarte con mayor eficiencia en instituciones públicas y privadas.",
+
+]
+
+}
+
+};
+
+function abrirCurso(nombre){
+
+const curso=cursosInfo[nombre];
+
+if(!curso) return;
+
+document.getElementById("tituloCurso").innerText=nombre;
+
+document.getElementById("descripcionCurso").innerText=curso.descripcion;
+
+document.getElementById("modalidadCurso").innerText=curso.modalidad;
+
+document.getElementById("horasCurso").innerText=curso.horas;
+
+document.getElementById("certificadoCurso").innerText=curso.certificado;
+
+const lista=document.getElementById("temarioCurso");
+
+lista.innerHTML="";
+
+curso.temario.forEach(item=>{
+
+lista.innerHTML+=`<li>${item}</li>`;
+
+});
+
+document.getElementById("botonWhatsapp").href=
+
+"https://wa.me/51919133859?text="+
+
+encodeURIComponent("Hola, quiero información del curso: "+nombre);
+
+document.getElementById("modalCurso").style.display="block";
+
+}
+
+function cerrarModal(){
+
+document.getElementById("modalCurso").style.display="none";
+
+}
+
+window.onclick=function(e){
+
+const modal=document.getElementById("modalCurso");
+
+if(e.target==modal){
+
+modal.style.display="none";
+
+}
+
+}
+
+</script>
+<script>
+
+const cursosInfo={
+
+};
+
+/*============================*/
+
+function abrirCurso(nombre){
+
+const curso=cursosInfo[nombre];
+
+if(!curso)return;
+
+document.getElementById("tituloCurso").innerText=nombre;
+
+document.getElementById("descripcionCurso").innerText=curso.descripcion;
+
+document.getElementById("modalidadCurso").innerText=curso.modalidad;
+
+document.getElementById("horasCurso").innerText=curso.horas;
+
+document.getElementById("certificadoCurso").innerText=curso.certificado;
+
+const lista=document.getElementById("temarioCurso");
+
+lista.innerHTML="";
+
+curso.temario.forEach(item=>{
+
+lista.innerHTML+=`<li>${item}</li>`;
+
+});
+
+document.getElementById("botonWhatsapp").href=
+
+"https://wa.me/51919133859?text="+
+
+encodeURIComponent(
+
+"Hola, deseo información del curso: "+nombre
+
+);
+
+document.getElementById("modalCurso").style.display="block";
+
+}
+
+/*============================*/
+
+function cerrarModal(){
+
+document.getElementById("modalCurso").style.display="none";
+
+}
+
+/*============================*/
+
+window.onclick=function(e){
+
+const modal=document.getElementById("modalCurso");
+
+if(e.target===modal){
+
+modal.style.display="none";
+
+}
+
+}
+
+</script>

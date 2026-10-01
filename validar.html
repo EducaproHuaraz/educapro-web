@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EducaPro | Formación y Certificación Profesional</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/validar.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+<header class="header">
+  <div class="header-container">
+
+    <img src="img/logo-educapro.png" alt="EducaPro" class="logo">
+
+    <nav class="menu">
+      <a href="index.html" >Inicio</a>
+      <a href="matriculas.html">Matrículas</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="validar.html"class="activo">Validar Certificado</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+<main class="validacion-page">
+
+    <section class="validacion-hero">
+
+        <div class="validacion-icono">
+            ✓
+        </div>
+
+        <h1>Validación de Certificados</h1>
+
+        <p class="validacion-descripcion">
+            Verifica la autenticidad de los certificados emitidos por EducaPro.
+        </p>
+
+        <div class="buscador-certificado">
+
+            <label for="dni">
+                Número de DNI
+            </label>
+
+            <div class="input-grupo">
+
+                <input
+                    type="text"
+                    id="dni"
+                    placeholder="Ingresa tu número de DNI"
+                    maxlength="8"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+
+                <button onclick="validar()">
+                    CONSULTAR
+                </button>
+
+            </div>
+
+            <p class="buscador-ayuda">
+                Ingresa los 8 dígitos de tu DNI para consultar tus certificados.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section id="resultado" class="resultado-contenedor"></section>
+
+</main>
+<script>
+
+function validar() {
+
+  const dni = document.getElementById("dni").value.trim();
+  const contenedor = document.getElementById("resultado");
+
+  if (!dni) {
+    contenedor.innerHTML = `
+      <div class="resultado-titulo">
+        ⚠️ Ingresa un número de DNI
+      </div>
+    `;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="resultado-titulo">
+      🔎 Consultando certificado...
+    </div>
+  `;
+
+  // Nombre único para recibir la respuesta
+  const callbackName =
+    "recibirCertificados_" + Date.now();
+
+  // Función que recibirá la respuesta de Apps Script
+  window[callbackName] = function(data) {
+
+    // Eliminar la función temporal
+    delete window[callbackName];
+
+    if (!data.success) {
+
+      contenedor.innerHTML = `
+        <div class="resultado-titulo"
+             style="background:#fff4f4;
+                    color:#b42318;
+                    border-color:#f3caca;">
+          ❌ No se encontró ningún certificado asociado a este DNI.
+        </div>
+      `;
+
+      return;
+    }
+
+    let html = `
+      <div class="resultado-titulo">
+        ✔ Registro verificado en la base de datos de EducaPro
+      </div>
+    `;
+
+    data.cursos.forEach(curso => {
+
+      let fecha = "";
+
+      if (curso.fechaEmision) {
+
+        const fechaObj =
+          new Date(curso.fechaEmision);
+
+        if (!isNaN(fechaObj.getTime())) {
+
+          fecha = fechaObj.toLocaleDateString(
+            "es-PE",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            }
+          );
+
+        }
+
+      }
+
+      html += `
+        <div class="cert-card">
+
+          <div class="cert-header">
+            ✔ Certificado Verificado
+          </div>
+
+          <div class="cert-body">
+
+            <p class="nombre">
+              ${curso.nombreCompleto || ""}
+            </p>
+
+            <div class="cert-info">
+              <span>Curso</span>
+              <strong>
+                ${curso.cursoInscrito || "No registrado"}
+              </strong>
+            </div>
+
+            <div class="cert-info">
+              <span>Código</span>
+              <strong class="codigo">
+                ${curso.codigoCertificado || "Pendiente"}
+              </strong>
+            </div>
+
+            ${
+              fecha
+              ? `
+                <div class="cert-info">
+                  <span>Fecha de emisión</span>
+                  <strong>${fecha}</strong>
+                </div>
+              `
+              : ""
+            }
+
+            ${
+              curso.calificacion !== "" &&
+              curso.calificacion !== null &&
+              curso.calificacion !== undefined
+              ? `
+                <div class="cert-info">
+                  <span>Calificación</span>
+                  <strong>${curso.calificacion}</strong>
+                </div>
+              `
+              : ""
+            }
+
+            <div class="cert-info">
+
+              <span>Estado</span>
+
+              <span class="estado ${
+                curso.estado === "APROBADO"
+                  ? "aprobado"
+                  : "rechazado"
+              }">
+
+                ${curso.estado || "PENDIENTE"}
+
+              </span>
+
+            </div>
+
+            ${
+              curso.observacion
+              ? `
+                <div class="certificado-extra">
+                  <p>
+                    <strong>Observación:</strong>
+                    ${curso.observacion}
+                  </p>
+                </div>
+              `
+              : ""
+            }
+
+          </div>
+
+        </div>
+      `;
+
+    });
+
+    contenedor.innerHTML = html;
+
+  };
+
+  // Crear solicitud JSONP
+  const script =
+    document.createElement("script");
+
+  script.src =
+    "https://script.google.com/macros/s/AKfycbwnbFg3n85SnxMyUhgT2_lX329aFAZDFGAMLtPOP1p9aQ8F9wU8bM9fuQDhsUTertCW/exec" +
+    "?action=validar" +
+    "&dni=" +
+    encodeURIComponent(dni) +
+    "&callback=" +
+    encodeURIComponent(callbackName);
+
+  // Si hay un error de conexión
+  script.onerror = function() {
+
+    delete window[callbackName];
+
+    contenedor.innerHTML = `
+      <div class="resultado-titulo"
+           style="background:#fff4f4;
+                  color:#b42318;
+                  border-color:#f3caca;">
+        ❌ No se pudo conectar con el sistema de validación.
+      </div>
+    `;
+
+  };
+
+  document.body.appendChild(script);
+
+}
+
+</script>
+<footer>
+  © 2026 EducaPro
+</footer>
+<a href="https://wa.me/51919133859?text=Hola%20quiero%20información%20sobre%20los%20certificados%20de%20EducaPro"
+   class="whatsapp"
+   target="_blank"
+   aria-label="WhatsApp">
+   💬
+</a>
+</body>
+</html>
+

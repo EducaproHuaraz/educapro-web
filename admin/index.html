@@ -197,11 +197,63 @@
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
+ <script>
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", async function(e) {
+
       e.preventDefault();
 
-      alert("El sistema de autenticación todavía está en configuración.");
+      const usuario =
+        document.getElementById("usuario").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const boton =
+        document.querySelector(".login-button");
+
+      boton.disabled = true;
+      boton.textContent = "Verificando...";
+
+      try {
+
+        const respuesta = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            usuario: usuario,
+            password: password
+          })
+        });
+
+        const resultado = await respuesta.json();
+
+        if (resultado.success) {
+
+          window.location.href = "/admin/panel.html";
+
+        } else {
+
+          alert(resultado.message || "Usuario o contraseña incorrectos.");
+
+          boton.disabled = false;
+          boton.textContent = "Iniciar sesión";
+        }
+
+      } catch (error) {
+
+        alert("No se pudo conectar con el servidor.");
+
+        boton.disabled = false;
+        boton.textContent = "Iniciar sesión";
+      }
+
     });
+</script>
   </script>
 
 </body>

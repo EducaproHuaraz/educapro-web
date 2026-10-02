@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Panel administrativo | EducaPro</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      background: #f4f7fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0d2b4d;
+    }
+
+    .loading {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid #dce5ef;
+      border-top-color: #0d2b4d;
+      border-radius: 50%;
+      animation: girar 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    .loading p {
+      font-size: 15px;
+      color: #64748b;
+    }
+
+    .panel {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .panel-header {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(15, 42, 77, 0.08);
+    }
+
+    .panel-header h1 {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .panel-header p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @keyframes girar {
+
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="loading" id="loading">
+
+    <div class="spinner"></div>
+
+    <p>Verificando sesión...</p>
+
+  </div>
+
+
+  <main class="panel" id="panel">
+
+    <div class="panel-header">
+
+      <h1>Panel administrativo</h1>
+
+      <p>
+        Sesión iniciada correctamente.
+      </p>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    async function verificarSesion() {
+
+      try {
+
+        const respuesta = await fetch(
+          "/api/session",
+          {
+            method: "GET",
+            credentials: "include"
+          }
+        );
+
+        const resultado =
+          await respuesta.json();
+
+        if (!resultado.success) {
+
+          window.location.href =
+            "/admin/";
+
+          return;
+
+        }
+
+        document
+          .getElementById("loading")
+          .style.display = "none";
+
+        document
+          .getElementById("panel")
+          .style.display = "block";
+
+      } catch (error) {
+
+        window.location.href =
+          "/admin/";
+
+      }
+
+    }
+
+    verificarSesion();
+
+  </script>
+
+</body>
+
+</html>

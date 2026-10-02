@@ -597,15 +597,16 @@
         </div>
 
 
-        <button
-          class="menu-item active"
-        >
+ <button
+  class="menu-item active"
+  id="menuInicio"
+>
 
-          <span class="menu-icon">🏠</span>
+  <span class="menu-icon">🏠</span>
 
-          <span>Inicio</span>
+  <span>Inicio</span>
 
-        </button>
+</button>
 
 
         <button
@@ -1500,11 +1501,41 @@ document
   .getElementById("menuIngresos")
   .addEventListener("click", function() {
 
-    alert("Módulo de Ingresos");
+    document
+      .getElementById("dashboardView")
+      .style.display = "none";
+
+    document
+      .getElementById("ingresosView")
+      .style.display = "block";
+
+    document
+      .getElementById("menuIngresos")
+      .classList.add("active");
 
   });
     verificarSesion();
+document
+  .getElementById("menuInicio")
+  .addEventListener("click", function() {
 
+    document
+      .getElementById("ingresosView")
+      .style.display = "none";
+
+    document
+      .getElementById("dashboardView")
+      .style.display = "block";
+
+    document
+      .getElementById("menuInicio")
+      .classList.add("active");
+
+    document
+      .getElementById("menuIngresos")
+      .classList.remove("active");
+
+  });
   </script>
 
 

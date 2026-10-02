@@ -22,16 +22,414 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
       background: #f4f7fb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: #0d2b4d;
     }
 
-    .loading {
+    /* =========================
+       ESTRUCTURA
+    ========================= */
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+    }
+
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      width: 250px;
+      min-height: 100vh;
+      background: #0d2b4d;
+      color: white;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .brand {
+      padding: 25px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
       text-align: center;
+    }
+
+    .brand img {
+      width: 155px;
+      max-width: 85%;
+      background: white;
+      border-radius: 8px;
+      padding: 7px;
+    }
+
+    .brand-title {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #cbd5e1;
+      letter-spacing: 0.4px;
+    }
+
+
+    .menu {
+      padding: 20px 12px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .menu-title {
+      font-size: 10px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 12px;
+      margin-bottom: 10px;
+    }
+
+    .menu-item {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #dbe7f3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 9px;
+      margin-bottom: 4px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .menu-item:hover {
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .menu-item.active {
+      background: #174b78;
+      color: white;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      width: 22px;
+      text-align: center;
+      font-size: 17px;
+    }
+
+
+    .sidebar-footer {
+      padding: 15px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .logout-button {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: #dbe7f3;
+      padding: 11px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .logout-button:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+
+    /* =========================
+       CONTENIDO
+    ========================= */
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .topbar {
+      height: 72px;
+      background: white;
+      border-bottom: 1px solid #e5eaf0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-title h1 {
+      font-size: 21px;
+      margin-bottom: 3px;
+    }
+
+    .topbar-title p {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #475569;
+      font-size: 13px;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      background: #e8f0f7;
+      color: #0d2b4d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+
+    /* =========================
+       CONTENIDO DASHBOARD
+    ========================= */
+
+    .content {
+      padding: 30px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       TARJETAS
+    ========================= */
+
+    .cards {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e7edf3;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow:
+        0 6px 20px rgba(15, 42, 77, 0.05);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .card-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef4f9;
+      font-size: 17px;
+    }
+
+    .card-value {
+      font-size: 25px;
+      font-weight: 700;
+      color: #0d2b4d;
+    }
+
+    .card-note {
+      margin-top: 7px;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+
+    /* =========================
+       BLOQUES
+    ========================= */
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+    }
+
+    .section {
+      background: white;
+      border: 1px solid #e7edf3;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow:
+        0 6px 20px rgba(15, 42, 77, 0.05);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-header h3 {
+      font-size: 16px;
+    }
+
+    .section-header span {
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+
+    /* =========================
+       MOVIMIENTOS
+    ========================= */
+
+    .movement {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid #eef2f6;
+    }
+
+    .movement:last-child {
+      border-bottom: none;
+    }
+
+    .movement-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .movement-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f5f9;
+    }
+
+    .movement-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .movement-date {
+      margin-top: 3px;
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .movement-amount {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .income {
+      color: #16805c;
+    }
+
+    .expense {
+      color: #c24141;
+    }
+
+
+    /* =========================
+       RESUMEN
+    ========================= */
+
+    .summary-row {
+      margin-bottom: 18px;
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: 12px;
+    }
+
+    .summary-top span:first-child {
+      color: #475569;
+    }
+
+    .summary-top span:last-child {
+      font-weight: 700;
+    }
+
+    .progress {
+      height: 7px;
+      background: #edf2f7;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 10px;
+      background: #174b78;
+    }
+
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f7fb;
     }
 
     .spinner {
@@ -41,36 +439,6 @@
       border-top-color: #0d2b4d;
       border-radius: 50%;
       animation: girar 0.8s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    .loading p {
-      font-size: 15px;
-      color: #64748b;
-    }
-
-    .panel {
-      display: none;
-      width: 100%;
-      min-height: 100vh;
-      padding: 30px;
-    }
-
-    .panel-header {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 8px 30px rgba(15, 42, 77, 0.08);
-    }
-
-    .panel-header h1 {
-      font-size: 26px;
-      margin-bottom: 8px;
-    }
-
-    .panel-header p {
-      color: #64748b;
-      font-size: 14px;
     }
 
     @keyframes girar {
@@ -85,34 +453,661 @@
 
     }
 
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1100px) {
+
+      .cards {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 750px) {
+
+      .sidebar {
+        width: 70px;
+      }
+
+      .brand {
+        padding: 18px 8px;
+      }
+
+      .brand img {
+        width: 45px;
+        object-fit: cover;
+        object-position: left;
+      }
+
+      .brand-title,
+      .menu-title,
+      .menu-item span:not(.menu-icon) {
+        display: none;
+      }
+
+      .menu-item {
+        justify-content: center;
+        padding: 13px 5px;
+      }
+
+      .sidebar-footer {
+        padding: 10px 8px;
+      }
+
+      .logout-button {
+        font-size: 0;
+      }
+
+      .logout-button::before {
+        content: "↪";
+        font-size: 18px;
+      }
+
+      .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+      }
+
+      .topbar {
+        padding: 0 18px;
+      }
+
+      .topbar-title h1 {
+        font-size: 17px;
+      }
+
+      .user-info span {
+        display: none;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
 
 </head>
 
+
 <body>
 
-  <div class="loading" id="loading">
+
+  <!-- =========================
+       LOADING
+  ========================== -->
+
+  <div
+    class="loading"
+    id="loading"
+  >
 
     <div class="spinner"></div>
-
-    <p>Verificando sesión...</p>
 
   </div>
 
 
-  <main class="panel" id="panel">
+  <!-- =========================
+       APLICACIÓN
+  ========================== -->
 
-    <div class="panel-header">
+  <div
+    class="app"
+    id="app"
+    style="display:none;"
+  >
 
-      <h1>Panel administrativo</h1>
 
-      <p>
-        Sesión iniciada correctamente.
-      </p>
+    <!-- SIDEBAR -->
 
-    </div>
+    <aside class="sidebar">
 
-  </main>
+      <div class="brand">
+
+        <img
+          src="../img/logo-educapro.png"
+          alt="EducaPro"
+        >
+
+        <div class="brand-title">
+          Administración
+        </div>
+
+      </div>
+
+
+      <nav class="menu">
+
+        <div class="menu-title">
+          Principal
+        </div>
+
+
+        <button
+          class="menu-item active"
+        >
+
+          <span class="menu-icon">🏠</span>
+
+          <span>Inicio</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">💰</span>
+
+          <span>Finanzas</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">📥</span>
+
+          <span>Ingresos</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">📤</span>
+
+          <span>Egresos</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">👥</span>
+
+          <span>Comisiones</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">💵</span>
+
+          <span>Caja</span>
+
+        </button>
+
+
+        <div
+          class="menu-title"
+          style="margin-top:22px;"
+        >
+          Análisis
+        </div>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">📊</span>
+
+          <span>Balance</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">📋</span>
+
+          <span>Presupuesto</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">📑</span>
+
+          <span>Reportes</span>
+
+        </button>
+
+
+        <button
+          class="menu-item"
+        >
+
+          <span class="menu-icon">🧾</span>
+
+          <span>SUNAT</span>
+
+        </button>
+
+      </nav>
+
+
+      <div class="sidebar-footer">
+
+        <button
+          class="logout-button"
+          id="logoutButton"
+        >
+          Cerrar sesión
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="main">
+
+
+      <!-- TOPBAR -->
+
+      <header class="topbar">
+
+        <div class="topbar-title">
+
+          <h1>Panel administrativo</h1>
+
+          <p>
+            Gestión interna de EducaPro
+          </p>
+
+        </div>
+
+
+        <div class="user-info">
+
+          <span>
+            Administrador
+          </span>
+
+          <div class="user-avatar">
+            A
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- DASHBOARD -->
+
+      <section class="content">
+
+
+        <div class="welcome">
+
+          <h2>
+            Resumen general
+          </h2>
+
+          <p>
+            Vista general de la gestión financiera de EducaPro.
+          </p>
+
+        </div>
+
+
+        <!-- TARJETAS -->
+
+        <div class="cards">
+
+
+          <div class="card">
+
+            <div class="card-top">
+
+              <span class="card-label">
+                Ingresos
+              </span>
+
+              <span class="card-icon">
+                📥
+              </span>
+
+            </div>
+
+            <div class="card-value">
+              S/ 0.00
+            </div>
+
+            <div class="card-note">
+              Este mes
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-top">
+
+              <span class="card-label">
+                Egresos
+              </span>
+
+              <span class="card-icon">
+                📤
+              </span>
+
+            </div>
+
+            <div class="card-value">
+              S/ 0.00
+            </div>
+
+            <div class="card-note">
+              Este mes
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-top">
+
+              <span class="card-label">
+                Balance
+              </span>
+
+              <span class="card-icon">
+                📊
+              </span>
+
+            </div>
+
+            <div class="card-value">
+              S/ 0.00
+            </div>
+
+            <div class="card-note">
+              Resultado del mes
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-top">
+
+              <span class="card-label">
+                Caja
+              </span>
+
+              <span class="card-icon">
+                💵
+              </span>
+
+            </div>
+
+            <div class="card-value">
+              S/ 0.00
+            </div>
+
+            <div class="card-note">
+              Saldo actual
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- BLOQUES -->
+
+        <div class="dashboard-grid">
+
+
+          <!-- MOVIMIENTOS -->
+
+          <div class="section">
+
+            <div class="section-header">
+
+              <h3>
+                Últimos movimientos
+              </h3>
+
+              <span>
+                Próximamente
+              </span>
+
+            </div>
+
+
+            <div class="movement">
+
+              <div class="movement-info">
+
+                <div class="movement-icon">
+                  📥
+                </div>
+
+                <div>
+
+                  <div class="movement-name">
+                    Registro de ingresos
+                  </div>
+
+                  <div class="movement-date">
+                    Los movimientos aparecerán aquí
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="movement-amount income">
+                S/ 0.00
+              </div>
+
+            </div>
+
+
+            <div class="movement">
+
+              <div class="movement-info">
+
+                <div class="movement-icon">
+                  📤
+                </div>
+
+                <div>
+
+                  <div class="movement-name">
+                    Registro de egresos
+                  </div>
+
+                  <div class="movement-date">
+                    Los movimientos aparecerán aquí
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="movement-amount expense">
+                S/ 0.00
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- RESUMEN -->
+
+          <div class="section">
+
+            <div class="section-header">
+
+              <h3>
+                Distribución
+              </h3>
+
+              <span>
+                Este mes
+              </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <div class="summary-top">
+
+                <span>
+                  Ingresos
+                </span>
+
+                <span>
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress">
+
+                <div
+                  class="progress-bar"
+                  style="width:0%;"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <div class="summary-top">
+
+                <span>
+                  Egresos
+                </span>
+
+                <span>
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress">
+
+                <div
+                  class="progress-bar"
+                  style="width:0%;"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <div class="summary-top">
+
+                <span>
+                  Comisiones
+                </span>
+
+                <span>
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress">
+
+                <div
+                  class="progress-bar"
+                  style="width:0%;"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+            <div class="summary-row">
+
+              <div class="summary-top">
+
+                <span>
+                  SUNAT
+                </span>
+
+                <span>
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress">
+
+                <div
+                  class="progress-bar"
+                  style="width:0%;"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+    </main>
+
+
+  </div>
 
 
   <script>
@@ -146,8 +1141,8 @@
           .style.display = "none";
 
         document
-          .getElementById("panel")
-          .style.display = "block";
+          .getElementById("app")
+          .style.display = "flex";
 
       } catch (error) {
 
@@ -158,9 +1153,21 @@
 
     }
 
+
+    document
+      .getElementById("logoutButton")
+      .addEventListener("click", function() {
+
+        window.location.href =
+          "/admin/";
+
+      });
+
+
     verificarSesion();
 
   </script>
+
 
 </body>
 

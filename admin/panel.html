@@ -1101,7 +1101,339 @@
 
 
         </div>
+<!-- =========================
+     VISTA INGRESOS
+========================== -->
 
+<div id="ingresosView" style="display:none;">
+
+  <div class="welcome">
+
+    <h2>
+      Ingresos
+    </h2>
+
+    <p>
+      Registro y control de los pagos recibidos por EducaPro.
+    </p>
+
+  </div>
+
+
+  <!-- TARJETAS DE INGRESOS -->
+
+  <div class="cards">
+
+    <div class="card">
+
+      <div class="card-top">
+
+        <span class="card-label">
+          Ingresos del mes
+        </span>
+
+        <span class="card-icon">
+          📥
+        </span>
+
+      </div>
+
+      <div class="card-value">
+        S/ 0.00
+      </div>
+
+      <div class="card-note">
+        Total recibido este mes
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-top">
+
+        <span class="card-label">
+          Pagos registrados
+        </span>
+
+        <span class="card-icon">
+          🧾
+        </span>
+
+      </div>
+
+      <div class="card-value">
+        0
+      </div>
+
+      <div class="card-note">
+        Operaciones del mes
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-top">
+
+        <span class="card-label">
+          Promedio por pago
+        </span>
+
+        <span class="card-icon">
+          💰
+        </span>
+
+      </div>
+
+      <div class="card-value">
+        S/ 0.00
+      </div>
+
+      <div class="card-note">
+        Promedio de operaciones
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-top">
+
+        <span class="card-label">
+          Último pago
+        </span>
+
+        <span class="card-icon">
+          🕐
+        </span>
+
+      </div>
+
+      <div class="card-value">
+        S/ 0.00
+      </div>
+
+      <div class="card-note">
+        Última operación registrada
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FILTROS -->
+
+  <div class="section">
+
+    <div class="section-header">
+
+      <h3>
+        Registro de pagos
+      </h3>
+
+      <button
+        id="nuevoIngresoButton"
+        type="button"
+        style="
+          border:none;
+          background:#174b78;
+          color:white;
+          padding:10px 16px;
+          border-radius:8px;
+          cursor:pointer;
+          font-size:13px;
+          font-weight:600;
+        "
+      >
+        + Nuevo ingreso
+      </button>
+
+    </div>
+
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:
+          1.5fr 1fr 1fr 1fr 1fr;
+        gap:12px;
+        margin-bottom:20px;
+      "
+    >
+
+      <input
+        type="text"
+        id="buscarIngreso"
+        placeholder="🔎 Buscar alumno o DNI"
+        style="
+          padding:11px 12px;
+          border:1px solid #dbe3eb;
+          border-radius:8px;
+          font-size:13px;
+          outline:none;
+        "
+      >
+
+      <input
+        type="date"
+        id="fechaDesdeIngreso"
+        style="
+          padding:11px 12px;
+          border:1px solid #dbe3eb;
+          border-radius:8px;
+          font-size:13px;
+          color:#475569;
+        "
+      >
+
+      <input
+        type="date"
+        id="fechaHastaIngreso"
+        style="
+          padding:11px 12px;
+          border:1px solid #dbe3eb;
+          border-radius:8px;
+          font-size:13px;
+          color:#475569;
+        "
+      >
+
+      <select
+        id="filtroCursoIngreso"
+        style="
+          padding:11px 12px;
+          border:1px solid #dbe3eb;
+          border-radius:8px;
+          font-size:13px;
+          color:#475569;
+          background:white;
+        "
+      >
+
+        <option value="">
+          Todos los cursos
+        </option>
+
+      </select>
+
+
+      <select
+        id="filtroColaboradorIngreso"
+        style="
+          padding:11px 12px;
+          border:1px solid #dbe3eb;
+          border-radius:8px;
+          font-size:13px;
+          color:#475569;
+          background:white;
+        "
+      >
+
+        <option value="">
+          Todos los colaboradores
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div
+      style="
+        overflow-x:auto;
+        border:1px solid #edf1f5;
+        border-radius:10px;
+      "
+    >
+
+      <table
+        style="
+          width:100%;
+          border-collapse:collapse;
+          min-width:900px;
+        "
+      >
+
+        <thead>
+
+          <tr
+            style="
+              background:#f8fafc;
+              border-bottom:1px solid #e5eaf0;
+            "
+          >
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              FECHA
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              ALUMNO
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              CURSO
+            </th>
+
+            <th style="padding:12px;text-align:right;font-size:11px;color:#64748b;">
+              MONTO
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              MÉTODO
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              OPERACIÓN
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              CUENTA
+            </th>
+
+            <th style="padding:12px;text-align:left;font-size:11px;color:#64748b;">
+              COLABORADOR
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="tablaIngresos">
+
+          <tr>
+
+            <td
+              colspan="8"
+              style="
+                padding:35px;
+                text-align:center;
+                color:#94a3b8;
+                font-size:13px;
+              "
+            >
+              No hay ingresos para mostrar.
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
 
       </section>
 

@@ -621,6 +621,7 @@
 
         <button
           class="menu-item"
+          id="menuIngresos"
         >
 
           <span class="menu-icon">📥</span>
@@ -769,7 +770,7 @@
       <!-- DASHBOARD -->
 
       <section class="content">
-
+       <div id="dashboardView"></div> 
 
         <div class="welcome">
 
@@ -1163,7 +1164,13 @@
 
       });
 
+document
+  .getElementById("menuIngresos")
+  .addEventListener("click", function() {
 
+    alert("Módulo de Ingresos");
+
+  });
     verificarSesion();
 
   </script>

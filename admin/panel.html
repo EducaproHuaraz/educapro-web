@@ -1257,6 +1257,79 @@
     </div>
 
 
+<!-- FORMULARIO NUEVO INGRESO -->
+<div id="formularioIngreso" style="display:none; background:#f8fafc; border:1px solid #dbe5ef; border-radius:12px; padding:22px; margin-bottom:22px;">
+  <h3 style="margin-bottom:6px;color:#0d2b4d;">Nuevo ingreso</h3>
+  <p style="font-size:13px;color:#64748b;margin-bottom:20px;">Registra el pago recibido del alumno.</p>
+
+  <form id="formNuevoIngreso">
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+
+      <div>
+        <label for="dniIngreso">DNI del alumno</label>
+        <input id="dniIngreso" name="dni" type="text" maxlength="8" inputmode="numeric" placeholder="Ingresa el DNI" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+      <div>
+        <label for="nombreIngreso">Nombre completo</label>
+        <input id="nombreIngreso" name="nombre" type="text" placeholder="Se completará al conectar los datos" readonly style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:#eef2f7;">
+      </div>
+
+      <div>
+        <label for="cursoIngreso">Curso</label>
+        <input id="cursoIngreso" name="curso" type="text" placeholder="Se completará al conectar los datos" readonly style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:#eef2f7;">
+      </div>
+
+      <div>
+        <label for="fechaIngreso">Fecha de pago</label>
+        <input id="fechaIngreso" name="fecha" type="date" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+      <div>
+        <label for="montoIngreso">Monto pagado (S/)</label>
+        <input id="montoIngreso" name="monto" type="number" min="0.01" step="0.01" placeholder="0.00" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+      <div>
+        <label for="metodoIngreso">Método de pago</label>
+        <select id="metodoIngreso" name="metodo" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:white;">
+          <option value="">Seleccionar método</option>
+          <option value="Yape">Yape</option>
+          <option value="Plin">Plin</option>
+          <option value="Transferencia bancaria">Transferencia bancaria</option>
+          <option value="Depósito">Depósito</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="operacionIngreso">Número de operación</label>
+        <input id="operacionIngreso" name="operacion" type="text" placeholder="Número o código de operación" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+      <div>
+        <label for="cuentaIngreso">Cuenta de destino</label>
+        <input id="cuentaIngreso" name="cuenta" type="text" placeholder="Ej. Yape EducaPro" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+      <div style="grid-column:1/-1;">
+        <label for="colaboradorIngreso">Colaborador</label>
+        <input id="colaboradorIngreso" name="colaborador" type="text" placeholder="Nombre del colaborador" required style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;">
+      </div>
+
+    </div>
+
+    <p id="mensajeFormularioIngreso" role="status" style="font-size:13px;margin-top:14px;color:#64748b;"></p>
+
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+      <button type="button" id="cancelarIngresoButton" style="padding:10px 16px;border:1px solid #cbd5e1;background:white;border-radius:8px;cursor:pointer;">Cancelar</button>
+      <button type="submit" style="padding:10px 16px;border:none;background:#174b78;color:white;border-radius:8px;font-weight:600;cursor:pointer;">Registrar ingreso</button>
+    </div>
+  </form>
+</div>
+<!-- FIN FORMULARIO NUEVO INGRESO -->
+
     <div
       style="
         display:grid;

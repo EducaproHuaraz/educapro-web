@@ -1536,6 +1536,62 @@ document
       .classList.remove("active");
 
   });
+  // ABRIR FORMULARIO NUEVO INGRESO
+
+document
+  .getElementById("nuevoIngresoButton")
+  .addEventListener("click", function() {
+
+    document
+      .getElementById("formularioIngreso")
+      .style.display = "block";
+
+    document
+      .getElementById("nuevoIngresoButton")
+      .style.display = "none";
+
+    document
+      .getElementById("mensajeFormularioIngreso")
+      .textContent = "";
+
+  });
+
+
+// CERRAR FORMULARIO NUEVO INGRESO
+
+document
+  .getElementById("cancelarIngresoButton")
+  .addEventListener("click", function() {
+
+    document
+      .getElementById("formularioIngreso")
+      .style.display = "none";
+
+    document
+      .getElementById("nuevoIngresoButton")
+      .style.display = "inline-block";
+
+    document
+      .getElementById("formNuevoIngreso")
+      .reset();
+
+  });
+
+
+// EVITAR ENVÍO HASTA CONECTAR GOOGLE SHEETS
+
+document
+  .getElementById("formNuevoIngreso")
+  .addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    document
+      .getElementById("mensajeFormularioIngreso")
+      .textContent =
+        "Formulario preparado. La conexión para guardar pagos está pendiente.";
+
+  });
   </script>
 
 

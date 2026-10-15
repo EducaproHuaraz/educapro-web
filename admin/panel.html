@@ -1652,7 +1652,57 @@ document
 
 
 
-  </script>
+  
+// REGISTRAR INGRESO MEDIANTE CLOUDFLARE
+document
+  .getElementById("formNuevoIngreso")
+  .addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formulario = event.currentTarget;
+    const boton = formulario.querySelector('button[type="submit"]');
+    const mensaje = document.getElementById("mensajeFormularioIngreso");
+
+    const datos = {
+      dni: document.getElementById("dniIngreso").value.trim(),
+      fecha: document.getElementById("fechaIngreso").value,
+      monto: document.getElementById("montoIngreso").value,
+      metodo: document.getElementById("metodoIngreso").value,
+      operacion: document.getElementById("operacionIngreso").value.trim(),
+      cuenta: document.getElementById("cuentaIngreso").value.trim(),
+      colaborador: document.getElementById("colaboradorIngreso").value.trim()
+    };
+
+    boton.disabled = true;
+    boton.textContent = "Registrando...";
+    mensaje.textContent = "Enviando solicitud...";
+
+    try {
+      const respuesta = await fetch("/api/finanzas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ accion: "registrarPago", datos })
+      });
+
+      const resultado = await respuesta.json();
+
+      if (!respuesta.ok || !resultado.ok) {
+        throw new Error(resultado.mensaje || "No se pudo registrar el ingreso.");
+      }
+
+      mensaje.textContent =
+        "Ingreso registrado: " + resultado.alumno + " | " + resultado.curso;
+      formulario.reset();
+    } catch (error) {
+      mensaje.textContent = error.message || "Error al registrar el ingreso.";
+    } finally {
+      boton.disabled = false;
+      boton.textContent = "Registrar ingreso";
+    }
+  });
+
+</script>
 
 
 </body>

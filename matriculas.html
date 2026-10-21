@@ -75,21 +75,21 @@
 <div class="campo">
   <label>Curso</label>
 
-  <div class="custom-select">
-    <input type="hidden" name="curso">
+<div class="custom-select">
+  <input type="hidden" name="curso" id="curso">
 
-    <div class="select-selected">Selecciona un curso</div>
+  <div class="select-selected">Cargando cursos...</div>
 
-    <div class="select-options">
-      
-      <input type="text" class="search" placeholder="Buscar curso...">
+  <div class="select-options">
+    <input
+      type="text"
+      class="search"
+      placeholder="Buscar curso..."
+      autocomplete="off"
+    >
 
-      <div>OFIMATICA PROFESIONAL</div>
-      <div>GESTION PUBLICA</div>
-      <div>EXCEL</div>
-      <div>SIAF</div>
-      <div>SEACE</div>
-
+    <div class="cursos-lista">
+      <div>Cargando cursos...</div>
     </div>
   </div>
 </div>
@@ -103,8 +103,17 @@
 
     <div class="select-options">
       <div>SECUNDARIA COMPLETA</div>
-      <div>Universitario</div>
-      <div>Postgrado</div>
+      <div>ESTUDIANTE TÉCNICO</div>
+      <div>EGRESADO TÉCNICO</div>
+      <div>TÉCNICO TITULADO</div>
+      <div>ESTUDIANTE UNIVERSITARIO</div>
+      <div>EGRESADO UNIVERSITARIO</div>
+      <div>BACHILLER UNIVERSITARIO</div>
+      <div>TÍTULO PROFESIONAL (LICENCIATURA O EQUIVALENTE)</div>
+      <div>MAESTRÍA (MAGÍSTER)</div>
+      <div>DOCTORADO (PHD)</div>
+      <div>OTRO</div>
+    
     </div>
   </div>
 </div>
@@ -117,9 +126,14 @@
     <div class="select-selected">Seleccione</div>
 
     <div class="select-options">
-      <div>Yape</div>
-      <div>Plin</div>
-      <div>Transferencia</div>
+      <div>YAPE</div>
+      <div>PLIN</div>
+      <div>TRANSFERENCIA BCP</div>
+      <div>TRANSFERENCIA INTERBANK</div>
+      <div>TRANSFERENCIA SCOTIABANK</div>
+      <div>TRANSFERENCIA BANCO DE LA NACIÓN</div>
+      <div>EFECTIVO</div>
+
     </div>
   </div>
 </div>
@@ -149,52 +163,65 @@
 
 <script>
 document.querySelectorAll(".custom-select").forEach(select => {
-
   const selected = select.querySelector(".select-selected");
   const optionsContainer = select.querySelector(".select-options");
-  const options = optionsContainer.querySelectorAll("div");
   const hiddenInput = select.querySelector("input[type='hidden']");
   const search = select.querySelector(".search");
 
-  // abrir / cerrar
+  // Abrir o cerrar el menú
   selected.addEventListener("click", () => {
     document.querySelectorAll(".custom-select").forEach(s => {
       if (s !== select) s.classList.remove("active");
     });
+
     select.classList.toggle("active");
   });
 
-  // seleccionar opción
-  options.forEach(option => {
-    option.addEventListener("click", () => {
-      selected.innerText = option.innerText;
-      if (hiddenInput) {
-  hiddenInput.value = option.innerText;
-}
-      select.classList.remove("active");
-    });
+  // Seleccionar opciones, incluidas las cargadas dinámicamente
+  optionsContainer.addEventListener("click", event => {
+    const option = event.target.closest(".cursos-lista > div, .select-options > div");
+
+    if (!option || option === optionsContainer) return;
+    if (option.classList.contains("cursos-lista")) return;
+    if (option.textContent.includes("Cargando cursos")) return;
+
+    if (option.textContent.includes("Error al cargar")) return;
+
+    selected.textContent = option.textContent.trim();
+
+    if (hiddenInput) {
+      hiddenInput.value = option.textContent.trim();
+    }
+
+    select.classList.remove("active");
+
+    if (search) {
+      search.value = "";
+      optionsContainer.querySelectorAll(".cursos-lista > div").forEach(item => {
+        item.style.display = "";
+      });
+    }
   });
 
-  // buscador
+  // Buscar cursos
   if (search) {
-    search.addEventListener("keyup", () => {
-      const filtro = search.value.toLowerCase();
+    search.addEventListener("input", () => {
+      const filtro = search.value.trim().toLocaleLowerCase("es");
 
-      options.forEach(option => {
-        option.style.display = option.innerText.toLowerCase().includes(filtro)
-          ? "block"
-          : "none";
+      optionsContainer.querySelectorAll(".cursos-lista > div").forEach(option => {
+        option.style.display = option.textContent
+          .toLocaleLowerCase("es")
+          .includes(filtro) ? "block" : "none";
       });
     });
   }
-
 });
 
-// cerrar afuera
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".custom-select")) {
-    document.querySelectorAll(".custom-select").forEach(s => {
-      s.classList.remove("active");
+// Cerrar los menús al hacer clic fuera
+document.addEventListener("click", event => {
+  if (!event.target.closest(".custom-select")) {
+    document.querySelectorAll(".custom-select").forEach(select => {
+      select.classList.remove("active");
     });
   }
 });
@@ -257,6 +284,52 @@ if (respuesta){
     }
   }
 }
+
+function cargarCursos() {
+  const url =
+    "https://script.google.com/macros/s/AKfycbwnbFg3n85SnxMyUhgT2_lX329aFAZDFGAMLtPOP1p9aQ8F9wU8bM9fuQDhsUTertCW/exec" +
+    "?action=cursos";
+
+  const selector = document.querySelector(".custom-select");
+  const seleccionado = selector.querySelector(".select-selected");
+  const lista = selector.querySelector(".cursos-lista");
+
+  const callbackName = "recibirCursos_" + Date.now();
+
+  window[callbackName] = function(resultado) {
+    delete window[callbackName];
+
+    if (!resultado || !resultado.success || !Array.isArray(resultado.cursos)) {
+      seleccionado.textContent = "No se pudieron cargar los cursos";
+      lista.innerHTML = "<div>Error al cargar los cursos</div>";
+      return;
+    }
+
+    lista.innerHTML = "";
+
+resultado.cursos.forEach(nombreCurso => {
+  const opcion = document.createElement("div");
+  opcion.textContent = nombreCurso;
+  opcion.style.cursor = "pointer";
+  lista.appendChild(opcion);
+});
+
+    seleccionado.textContent = "Selecciona un curso";
+  };
+
+  const script = document.createElement("script");
+  script.src = url + "&callback=" + encodeURIComponent(callbackName);
+
+  script.onerror = function() {
+    delete window[callbackName];
+    seleccionado.textContent = "Error al conectar con los cursos";
+    lista.innerHTML = "<div>No se pudo conectar. Recarga la página.</div>";
+  };
+
+  document.body.appendChild(script);
+}
+
+document.addEventListener("DOMContentLoaded", cargarCursos);
 </script>
 </body>
 </html>
